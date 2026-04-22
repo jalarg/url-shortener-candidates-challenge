@@ -8,4 +8,10 @@ export {
   type ShortUrlRecord,
   type ShortUrlRepository,
 } from "./repositories/short-url-repository";
+export {
+  DASHBOARD_SHORT_URL_LIMIT,
+  ShortUrlService,
+  shortUrlService,
+  type PaginatedShortUrls,
+} from "./services/short-url-service";
 export { shortenedUrls } from "./shortened-url";
