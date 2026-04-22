@@ -1,4 +1,4 @@
-export { baseUrl } from "./base-url";
+export { getPublicBaseUrl } from "./base-url";
 
 export { AppError, NotFoundError, RateLimitError, ValidationError } from "./domain/errors";
 export { generateShortCode } from "./domain/short-code";
@@ -14,4 +14,3 @@ export {
   shortUrlService,
   type PaginatedShortUrls,
 } from "./services/short-url-service";
-export { shortenedUrls } from "./shortened-url";
