@@ -9,10 +9,14 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "start": "pnpm --filter web start",
-    "start:docker": "prisma db push && pnpm --filter web start"
+    "start:docker": "prisma db push && pnpm --filter web start",
+    "test": "pnpm --filter @url-shortener/engine test",
+    "test:coverage": "pnpm --filter @url-shortener/engine test:coverage",
+    "test:e2e": "playwright test"
   },
   "packageManager": "pnpm@10.20.0",
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "prisma": "^6.16.2",
     "turbo": "^2.7.4"
   },
