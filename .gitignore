@@ -141,5 +141,11 @@ vite.config.ts.timestamp-*
 # Turbo cache
 .turbo
 
+# Local SQLite data
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
 # Claude code
 .claude/settings.local.json

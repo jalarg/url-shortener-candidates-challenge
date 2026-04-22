@@ -4,11 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build",
-    "typecheck": "turbo typecheck"
+    "build": "prisma generate && turbo build",
+    "typecheck": "prisma generate && turbo typecheck",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push"
   },
   "packageManager": "pnpm@10.20.0",
   "devDependencies": {
+    "prisma": "^6.16.2",
     "turbo": "^2.7.4"
+  },
+  "dependencies": {
+    "@prisma/client": "6.16.2"
   }
 }
