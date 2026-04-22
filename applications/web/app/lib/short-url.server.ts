@@ -56,9 +56,6 @@ export async function createShortUrl(input: string, requestUrl: string) {
   };
 }
 
-/** Resolve target URL for redirect without recording a visit (visit tracking comes in a follow-up). */
-export async function getRedirectTargetUrl(code: string): Promise<string | null> {
-  const record = await shortUrlService.findShortUrl(code);
-
-  return record?.originalUrl ?? null;
+export async function resolveShortUrlForRedirect(code: string) {
+  return shortUrlService.resolveShortUrl(code);
 }
