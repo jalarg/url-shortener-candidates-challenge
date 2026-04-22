@@ -1,12 +1,13 @@
 import { data, useActionData } from "react-router";
 import type { Route } from "./+types/_index";
-import { AppError, ValidationError } from "@url-shortener/engine";
+import { AppError, RateLimitError, ValidationError } from "@url-shortener/engine";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { UrlForm } from "~/components/url-form";
 import { UrlStatsTable } from "~/components/url-stats-table";
+import { enforceCreateShortUrlRateLimit } from "~/lib/rate-limit.server";
 import { createShortUrl, loadShortUrlDashboard } from "~/lib/short-url.server";
 
 const featureItems = [
@@ -33,12 +34,14 @@ export async function action({ request }: Route.ActionArgs) {
   const url = String(formData.get("url") ?? "");
 
   try {
+    enforceCreateShortUrlRateLimit(request);
+
     const createdShortUrl = await createShortUrl(url, request.url);
 
     return data({ formValue: url, createdShortUrl });
   } catch (error) {
     if (error instanceof AppError) {
-      const status = error instanceof ValidationError ? 400 : 500;
+      const status = error instanceof ValidationError ? 400 : error instanceof RateLimitError ? 429 : 500;
 
       return data({ formValue: url, error: error.message }, { status });
     }
